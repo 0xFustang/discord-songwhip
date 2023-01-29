@@ -3,6 +3,9 @@ import Secrets
 import requests
 import json
 import validators
+import asyncio
+import datetime
+
 
 from discord import app_commands
 
@@ -13,7 +16,7 @@ def requests_songwhip(link):
     r = requests.post(url, json = input)
     json_data = json.loads(r.text)
     songwhip_link = json_data['url']
-    print(songwhip_link)
+    #print(songwhip_link)
 
     return songwhip_link
 
@@ -26,8 +29,16 @@ def discord_songwhip():
     @app_commands.describe(link="Provide a link from a song (.e.g YouTube, Spotify, Tidal link)")
     async def music(interaction, link: str):
         if validators.url(link):
-            #await interaction.response.send_message('Yes.')
-            await interaction.response.send_message(requests_songwhip(link))
+            await interaction.response.defer()
+            await asyncio.sleep(5)
+            try:
+                res = requests_songwhip(link)
+                await interaction.followup.send(res)
+            except KeyError:
+                await interaction.followup.send("Wrong URL. Please send a YouTube link or a Spotify link.")
+            except:
+                await interaction.followup.send("Something went wrong...")
+            #await interaction.followup.send(res)
         else:
             await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.", ephemeral=True)
     @client.event
