@@ -9,7 +9,7 @@ import datetime
 
 from discord import app_commands
 
-def requests_songwhip(link):
+async def requests_songwhip(link):
 
     url = 'https://songwhip.com/' # Songwhip URL
     input = {'url': link}
@@ -31,7 +31,7 @@ def discord_songwhip():
         if validators.url(link):
             await interaction.response.defer()
             try:
-                res = requests_songwhip(link)
+                res = await requests_songwhip(link)
                 await interaction.followup.send(res)
             except KeyError:
                 await interaction.followup.send("Songwhip could not create a link using the provided url.")
