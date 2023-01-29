@@ -35,9 +35,9 @@ def discord_songwhip():
                 res = requests_songwhip(link)
                 await interaction.followup.send(res)
             except KeyError:
-                await interaction.followup.send("Wrong URL. Please send a YouTube link or a Spotify link.")
+                await interaction.followup.send("Wrong URL. Please send a YouTube link or a Spotify link.", ephemeral=True)
             except:
-                await interaction.followup.send("Something went wrong...")
+                await interaction.followup.send("Something went wrong...", ephemeral=True)
         else:
             await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.", ephemeral=True)
     @client.event
