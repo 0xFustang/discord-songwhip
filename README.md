@@ -15,4 +15,5 @@ This bot offers the command `/music` where a user provides in the `link` argumen
 3. Setup the virtual enviromnent:
     - `python3 -m venv venv`
     - `source venv/bin/activate`
+    - `pip3 install -r requirements.txt`
 3. Launch `discord-songwhip.py`.
