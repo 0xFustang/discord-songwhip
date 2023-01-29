@@ -29,15 +29,15 @@ def discord_songwhip():
     @app_commands.describe(link="Provide a link from a song (.e.g YouTube, Spotify, Tidal link)")
     async def music(interaction, link: str):
         if validators.url(link):
-            await interaction.response.defer()
+            await interaction.response.defer(ephemeral=True)
             await asyncio.sleep(10)
             try:
                 res = requests_songwhip(link)
                 await interaction.followup.send(res)
             except KeyError:
-                await interaction.followup.send("Wrong URL. Please send a YouTube link or a Spotify link.", ephemeral=True)
+                await interaction.followup.send("Wrong URL. Please send a YouTube link or a Spotify link.")
             except:
-                await interaction.followup.send("Something went wrong...", ephemeral=True)
+                await interaction.followup.send("Something went wrong...")
         else:
             await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.", ephemeral=True)
     @client.event
