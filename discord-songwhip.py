@@ -9,13 +9,14 @@ import datetime
 
 from discord import app_commands
 
-async def requests_songwhip(link):
+def requests_songwhip(link):
 
     url = 'https://songwhip.com/' # Songwhip URL
     input = {'url': link}
     r = requests.post(url, json = input)
     json_data = json.loads(r.text)
     songwhip_link = json_data['url']
+    #print(songwhip_link)
 
     return songwhip_link
 
@@ -28,15 +29,14 @@ def discord_songwhip():
     @app_commands.describe(link="Provide a link from a song (.e.g YouTube, Spotify, Tidal link)")
     async def music(interaction, link: str):
         if validators.url(link):
+            await interaction.response.defer()
             try:
-                res = await requests_songwhip(link)
-                await interaction.response.send_message(res)
+                res = requests_songwhip(link)
+                await interaction.followup.send(res)
             except KeyError:
-                await interaction.response.send_message("Songwhip could not create a link using the provided url.", ephemeral=True)
-            except discord.app_commands.errors.CommandInvokeError:
-                await interaction.response.send_message("Timeout while requesting Songwhip...", ephemeral=True)
+                await interaction.followup.send("Songwhip could not create a link using the provided url.")
             except:
-                await interaction.response.send_message("Something went wrong...", ephemeral=True)
+                await interaction.followup.send("Something went wrong...")
         else:
             await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.", ephemeral=True)
     @client.event
