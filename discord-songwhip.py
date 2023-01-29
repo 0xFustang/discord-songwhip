@@ -33,6 +33,8 @@ def discord_songwhip():
                 await interaction.response.send_message(res)
             except KeyError:
                 await interaction.response.send_message("Songwhip could not create a link using the provided url.", ephemeral=True)
+            except discord.app_commands.errors.CommandInvokeError:
+                await interaction.response.send_message("Timeout while requesting Songwhip...", ephemeral=True)
             except:
                 await interaction.response.send_message("Something went wrong...", ephemeral=True)
         else:
