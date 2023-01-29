@@ -29,7 +29,7 @@ def discord_songwhip():
             #await interaction.response.send_message('Yes.')
             await interaction.response.send_message(requests_songwhip(link))
         else:
-            await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.")
+            await interaction.response.send_message("I am terribly sorry but this is not a link! Post a link, any link!\nIt could be a YouTube link or a Spotify link for instance.", ephemeral=True)
     @client.event
     async def on_ready():
         await tree.sync(guild=discord.Object(id=Secrets.DISCORD_GUILDID))

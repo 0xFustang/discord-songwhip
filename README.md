@@ -8,7 +8,7 @@ This bot offers the command `/music` where a user provides in the `link` argumen
 
 ## Bot setup
 
-1. Add a bot on the desired server (https://discord.com/developers/applications).
+1. Add a bot on the desired server (https://discord.com/developers/applications) - (Required: "Send message");
 2. Copy `Secrets.py.example` into `Secrets.py` and fill the values:
     - `DISCORD_TOKEN` - Token of the Discord bot;
     - `DISCORD_GUILDID` - GuildID of the Discord server.
