@@ -16,7 +16,6 @@ async def requests_songwhip(link):
     r = requests.post(url, json = input)
     json_data = json.loads(r.text)
     songwhip_link = json_data['url']
-    #print(songwhip_link)
 
     return songwhip_link
 
@@ -30,7 +29,6 @@ def discord_songwhip():
     async def music(interaction, link: str):
         if validators.url(link):
             await interaction.response.defer()
-            await asyncio.sleep(8)
             try:
                 res = await requests_songwhip(link)
                 await interaction.followup.send(res)
